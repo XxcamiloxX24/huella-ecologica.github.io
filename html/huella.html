@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Huella Ecológica</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../css/calculadoraHuella.css">
+    <link rel="icon" type="image/png" href="../img/icono.png">
+    
+    
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Calculadora de Huella Ecológica</h1>
+        <form id="ecoForm">
+          <h2>Energía y Vivienda</h2>
+          <label for="electricidad" class="form-label">¿Cuál es el consumo mensual de electricidad en tu hogar?</label><br>
+          <select id="electricidad" name="electricidad" class="form-control">
+              <option value="0.5" style="background-color: chartreuse; color: black;">Menos de 100 kWh</option>
+              <option value="1" style="background-color: yellow; color: black;">Entre 100 y 300 kWh</option>
+              <option value="1.5" style="background-color: yellow; color: black;">Entre 300 y 500 kWh</option>
+              <option value="2" style="background-color: red; color: white;">Más de 500 kWh</option>
+          </select><br><br>
+          
+          <label for="paneles" class="form-label">¿Tienes paneles solares?</label><br>
+          <select id="paneles" name="paneles" class="form-control">
+              <option value="0">Sí</option>
+              <option value="0.5">No</option>
+          </select><br><br>
+  
+          <h2>Transporte</h2>
+          <label for="transporte" class="form-label">¿Con qué frecuencia usas transporte privado?</label><br>
+          <select id="transporte" name="transporte" class="form-control">
+              <option value="2">A diario</option>
+              <option value="1.5">Varias veces a la semana</option>
+              <option value="1">Una vez a la semana</option>
+              <option value="0.5">Rara vez</option>
+              <option value="0">Nunca</option>
+          </select><br><br>
+  
+          <label for="combustible" class="form-label">¿Qué tipo de combustible usa tu vehículo?</label><br>
+          <select id="combustible" name="combustible" class="form-control">
+              <option value="1.5">Gasolina</option>
+              <option value="1.5">Diésel</option>
+              <option value="1">GNV</option>
+              <option value="0.5">Eléctrico</option>
+              <option value="0">No tengo vehículo</option>
+          </select><br><br>
+  
+          <h2>Alimentación</h2>
+          <label for="carne" class="form-label">¿Con qué frecuencia consumes carne?</label><br>
+          <select id="carne" name="carne" class="form-control">
+              <option value="2">A diario</option>
+              <option value="1.5">Varias veces a la semana</option>
+              <option value="1">Una vez a la semana</option>
+              <option value="0.5">Rara vez</option>
+              <option value="0">Nunca</option>
+          </select><br><br>
+  
+          <h2>Consumo y Residuos</h2>
+          <label for="residuos" class="form-label">¿Separas los residuos reciclables en tu hogar?</label><br>
+          <select id="residuos" name="residuos" class="form-control">
+              <option value="0">Siempre</option>
+              <option value="0.5">A veces</option>
+              <option value="1">Nunca</option>
+          </select><br><br>
+  
+          <h2>Uso de Agua</h2>
+          <label for="agua" class="form-label">¿Con qué frecuencia usas electrodomésticos que consumen mucha agua?</label><br>
+          <select id="agua" name="agua" class="form-control">
+              <option value="1.5">A diario</option>
+              <option value="1">Varias veces a la semana</option>
+              <option value="0.5">Una vez a la semana</option>
+              <option value="0">Rara vez</option>
+          </select><br><br>
+  
+          <input type="button" value="Calcular Huella Ecológica" class="her_cta" onclick="calculateFootprint()">
+            <!--<button type="button" class="her_cta" onclick="calculateFootprint()">Calcular</button>
+            -->
+            <a href="../index.html" class="btn btn-secondary" id="s">Atrás</a>
+        
+    </div>
+    
+        <footer><hr color="white"></footer>
+
+        <section class="modal">
+          <div class="modal_container">
+            <img src="../img/descenso.gif" alt="Resultado" class="modal-img">
+
+            <h1 class="modal_title"><b>Resultado de la huella ecológica</b></h1>
+            <p class="modal_paragraph">
+              <div id="resultContainer" class="result-container">
+                <p id="result" class="result"></p>
+              </div>
+              Factores de Conversión a Hectáreas Globales
+              <div class="btn-group" role="group" aria-label="Basic outlined example" style="align-items: center;">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                  Huella
+                </button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                  Dato
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
+                  Solución
+                </button>
+              </div>
+
+              <!-- Modal -->
+              <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Promedio en Colombia</h1>
+                    </div>
+                    <div class="modal-body">
+                      El promedio de la huella ecológica por persona en Colombia es de aproximadamente 2.5 hectáreas globales (gha). Este valor puede variar ligeramente dependiendo de la fuente y del año del estudio, pero se mantiene dentro de ese rango en las últimas estimaciones.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Promedio mundial</h1>
+                    </div>
+                    <div class="modal-body">
+                      Para poner este dato en contexto, el promedio mundial es alrededor de 2.8 gha, mientras que la biocapacidad (la capacidad del planeta para regenerar los recursos que consumimos) es de aproximadamente 1.6 gha por persona. Esto significa que el consumo promedio global, incluido el de Colombia, está por encima de la capacidad de regeneración del planeta, lo que lleva al concepto de déficit ecológico.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Solución</h1>
+                    </div>
+                    <div class="modal-body">
+                      Para reducir la huella ecológica, es clave adoptar hábitos más sostenibles, como disminuir el consumo de electricidad y carne, optar por transporte público o bicicletas, reciclar y reducir el uso de productos de un solo uso. Además, usar electrodomésticos eficientes, aprovechar energías renovables, y consumir productos locales y de temporada puede disminuir significativamente nuestro impacto ambiental. Pequeños cambios en el consumo diario, junto con la reutilización de recursos como el agua, ayudan a conservar el planeta de manera efectiva.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="#" class="modal_close">Cerrar</a> 
+            </p>
+                       
+          </div>
+        </section>
+
+        
+
+        <script src="../js/script.js"></script>
+        <script src="../js/bootstrap.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>        
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>
+
